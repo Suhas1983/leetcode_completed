@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<title>LeetCode Notes</title>
+<link rel="stylesheet" href="panel.css" />
+</head>
+<body>
+  <header class="topbar">
+    <div class="brand">
+      <span class="node node--mint"></span><span class="edge"></span><span class="node node--amber"></span><span class="edge"></span><span class="node node--mint"></span>
+      <h1>Pattern&nbsp;Notes</h1>
+    </div>
+    <button id="settingsBtn" class="link-btn" title="Set your Gemini API key">API Key</button>
+    <button id="viewAllBtn" class="link-btn">All notes</button>
+  </header>
+
+  <div id="settingsPanel" class="settings-panel hidden">
+    <label>
+      Gemini API key
+      <input type="password" id="apiKeyInput" placeholder="AIza..." autocomplete="off" />
+    </label>
+    <div class="form-actions">
+      <button type="button" id="saveApiKeyBtn" class="primary-btn">Save key</button>
+      <button type="button" id="clearApiKeyBtn" class="link-btn">Clear</button>
+      <button type="button" id="closeSettingsBtn" class="link-btn">Close</button>
+    </div>
+    <p class="hint">Stored locally on this device via chrome.storage.local. It's only ever sent directly to generativelanguage.googleapis.com when you click "Fill with AI" — never to any other server. Get a free key at aistudio.google.com/apikey.</p>
+    <span id="apiKeyStatus" class="save-status"></span>
+  </div>
+
+  <main id="formView">
+    <section class="problem-card" id="problemCard">
+      <div class="problem-card__row">
+        <h2 id="problemName">No problem loaded yet</h2>
+        <span id="difficultyBadge" class="badge">—</span>
+      </div>
+      <div id="tagRow" class="tag-row"></div>
+      <a id="problemUrl" class="problem-link" href="#" target="_blank" rel="noopener"></a>
+      <button type="button" id="codeToggle" class="link-btn code-toggle hidden">Show captured code</button>
+      <pre id="codePreview" class="code-preview hidden"></pre>
+    </section>
+
+    <p class="hint">Solve any problem on LeetCode and get Accepted — this panel fills in automatically. You can also start a note manually below.</p>
+
+    <button id="manualBtn" class="secondary-btn">Start a note manually</button>
+
+    <form id="noteForm" class="note-form hidden">
+      <button type="button" id="fillAiBtn" class="secondary-btn">✨ Fill with AI</button>
+      <span id="aiStatus" class="save-status"></span>
+
+      <label>
+        1. Pattern
+        <input type="text" id="pattern" placeholder="e.g. Sliding window, Two pointers, Binary search on answer" />
+      </label>
+
+      <label>
+        2. Sub-pattern
+        <input type="text" id="subPattern" placeholder="e.g. Variable-size window, Fast/slow pointers, Search on monotonic predicate" />
+      </label>
+
+      <label>
+        3. Recognition clues
+        <textarea id="recognitionClues" rows="2" placeholder="What in the problem statement should make you think of this pattern next time?"></textarea>
+      </label>
+
+      <label>
+        4. Core idea
+        <textarea id="coreIdea" rows="3" placeholder="What was the 'aha' moment? The core mechanism, in your own words."></textarea>
+      </label>
+
+      <label>
+        5. Invariant
+        <textarea id="invariant" rows="2" placeholder="What stays true throughout the algorithm, at every step of the loop/recursion?"></textarea>
+      </label>
+
+      <label>
+        6. Real-life application
+        <textarea id="realWorld" rows="2" placeholder="Where does this pattern show up in practice?"></textarea>
+      </label>
+
+      <label>
+        7. Edge cases
+        <textarea id="edgeCases" rows="2" placeholder="Empty input, duplicates, negative numbers..."></textarea>
+      </label>
+
+      <div class="two-col">
+        <label>
+          8. Time complexity
+          <input type="text" id="timeComplexity" placeholder="O(n log n)" />
+        </label>
+        <label>
+          &nbsp;Space complexity
+          <input type="text" id="spaceComplexity" placeholder="O(n)" />
+        </label>
+      </div>
+
+      <label>
+        9. Mistakes I made
+        <textarea id="mistakes" rows="2" placeholder="What tripped you up, or would trip up someone else?"></textarea>
+      </label>
+
+      <label>
+        10. Similar problems
+        <input type="text" id="similarProblems" placeholder="Comma-separated: e.g. 3, 76, 209" />
+      </label>
+
+      <fieldset class="optional-extras">
+        <legend>Optional extras</legend>
+        <label>
+          Data structure
+          <input type="text" id="dataStructure" placeholder="e.g. Hash map, Monotonic stack, Union-Find" />
+        </label>
+        <label>
+          Algorithm
+          <input type="text" id="algorithm" placeholder="e.g. DFS, Dijkstra, Kadane's algorithm" />
+        </label>
+        <label>
+          Company tags
+          <input type="text" id="companyTags" placeholder="Comma-separated: e.g. Google, Meta" />
+        </label>
+      </fieldset>
+
+      <div class="form-actions">
+        <button type="submit" class="primary-btn">Save note</button>
+        <button type="button" id="saveAndWordBtn" class="secondary-btn secondary-btn--inline">Save + Word doc</button>
+      </div>
+      <span id="saveStatus" class="save-status"></span>
+    </form>
+  </main>
+
+  <main id="listView" class="hidden">
+    <div class="list-header">
+      <button id="backBtn" class="link-btn">← Back</button>
+      <input type="search" id="searchInput" placeholder="Search by pattern, tag, name, or company..." />
+    </div>
+    <button id="exportAllBtn" class="secondary-btn">Export all notes to Word</button>
+    <div id="notesList" class="notes-list"></div>
+  </main>
+
+  <script src="config.js"></script>
+  <script src="word-export.js"></script>
+  <script src="panel.js"></script>
+</body>
+</html>
